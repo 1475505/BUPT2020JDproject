@@ -1,0 +1,41 @@
+# Project: muticore
+# Makefile created by Dev-C++ 6.6
+
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
+WINDRES  = windres.exe
+OBJ      = cmd.o in.o main.o out.o tool.o
+LINKOBJ  = cmd.o in.o main.o out.o tool.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/i686-w64-mingw32/lib" -static-libstdc++ -static-libgcc -g3
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/i686-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include-fixed"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/i686-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include-fixed" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include/c++/10.2.0" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include/c++/10.2.0/i686-w64-mingw32" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include/c++/10.2.0/backward"
+BIN      = muticore.exe
+CXXFLAGS = $(CXXINCS) -Wall -Wextra -g3
+ENCODINGS = -finput-charset=utf-8 -fexec-charset=gbk
+CFLAGS   = $(INCS) -Wall -Wextra -g3
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+cmd.o: cmd.c cmd.h tool.h
+	$(CC) -c cmd.c -o cmd.o $(CFLAGS) 
+
+in.o: in.c in.h
+	$(CC) -c in.c -o in.o $(CFLAGS) 
+
+main.o: main.c cmd.h in.h out.h tool.h
+	$(CC) -c main.c -o main.o $(CFLAGS) 
+
+out.o: out.c out.h tool.h
+	$(CC) -c out.c -o out.o $(CFLAGS) 
+
+tool.o: tool.c tool.h
+	$(CC) -c tool.c -o tool.o $(CFLAGS) 
